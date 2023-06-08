@@ -1,4 +1,4 @@
-import {Route, Routes } from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import './App.css';
 
 // Import Components
@@ -16,30 +16,46 @@ import SignUp from "./pages/AuthPages/SingUp"
 import Review from "./pages/Review/Review"
 import MessageBoard from "./pages/MessageBoard/MessageBoard"
 import Message from "./pages/Message/Message"
+import {useState} from "react";
+import LoginOverlay from "./components/LoginOverlay/LoginOverlay";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <main>
-        <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/contact" element={<Contact/>}/>
-            <Route path="/products" element={<Products />}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/signup" element={<SignUp/>}/>
+    const [isAuth, toggleAuthentication] = useState(true);
+    const [isLoginOverlayOpen, setIsLoginOverlayOpen] = useState(false);
 
-            {/* Authorized pages */}
-            <Route path="/profile" element={<Profile />}/>
-            <Route path="/study group" element={<StudyGroup />}/>
-            <Route path="/review" element={<Review />}/>
-            <Route path="/message board" element={<MessageBoard />}/>
-            <Route path="/messages" element={<Message />}/>
-        </Routes>
-      </main>
-      <Footer />
-      </>
-  );
+    const openLoginOverlay = () => {
+        setIsLoginOverlayOpen(true);
+    };
+
+    const closeLoginOverlay = () => {
+        setIsLoginOverlayOpen(false);
+    };
+
+    return (
+        <>
+            <div className="app-container">
+            <Header isAuth={isAuth} openLoginOverlay={openLoginOverlay} />
+            {isLoginOverlayOpen && <LoginOverlay onClose={closeLoginOverlay} />}
+            <main>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/contact" element={<Contact/>}/>
+                    <Route path="/products" element={<Products/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/signup" element={<SignUp/>}/>
+
+                    {/* Authorized pages */}
+                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/study group" element={<StudyGroup/>}/>
+                    <Route path="/review" element={<Review/>}/>
+                    <Route path="/messageboard" element={<MessageBoard/>}/>
+                    <Route path="/messages" element={<Message/>}/>
+                </Routes>
+            </main>
+            <Footer/>
+            </div>
+        </>
+    );
 }
 
 export default App;

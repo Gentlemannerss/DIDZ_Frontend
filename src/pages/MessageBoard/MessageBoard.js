@@ -1,9 +1,10 @@
 import React from 'react';
+import MessageBoardComponent from "../../components/MessageBoard/MessageBoardComponent";
 
 function MessageBoard() {
     return (
         <div>
-            <p>Test MessageBoard</p>
+            <MessageBoardComponent />
         </div>
     );
 }
