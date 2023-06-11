@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Button from "../Button/Button";
 
 function Header({ isAuth, openLoginOverlay }) {
     return (
@@ -104,11 +105,11 @@ function Header({ isAuth, openLoginOverlay }) {
             <div className="outerContainer, heroSection">
                 <section className="innerContainer headerSection">
                     <div>
-                        <h1>Getting your college to the next digital level</h1>
+                        <h1>Giving your college the best level of digital knowledge.</h1>
                         <p>
-                            Here we will make every colleague known in the digital world of your organization
+                            We offer different services to help everyone get to the next level of digital knowledge.
                         </p>
-                        {/* Button component goes here */}
+                        <Button>Learn More</Button>
                     </div>
                     <img src="" alt="logo" />
                 </section>

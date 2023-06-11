@@ -1,0 +1,45 @@
+.outerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.innerContainer {
+    flex-basis: 1200px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 1rem;
+}
+
+.benefits {
+    /* Add styles for the benefits section here */
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card {
+    width: 30%;
+    background-color: #f2f2f2;
+    padding: 20px;
+    text-align: center;
+}
+
+.card i {
+    /* Add styles for the icon here */
+}
+
+.card h4 {
+    /* Add styles for the benefit title here */
+}
+
+.card p {
+    /* Add styles for the benefit description here */
+}
