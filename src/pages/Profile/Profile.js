@@ -32,7 +32,7 @@ function Profile() {
     async function onSubmit(data) {
         setIsLoading(true);
         try {
-            const response = await axios.put("/users", data, {
+            const response = await axios.put("localhost:3000/users", data, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `${localStorage.getItem('token')}`
@@ -66,31 +66,75 @@ function Profile() {
                         <li>Basic Info:</li>
                         <ul>
                             <li>
+{/*
                                 <input type="text" name="photo" ref={register} placeholder="Photo" />
+*/}
                             </li>
                             <li>
-                                <input type="text" name="name" ref={register} placeholder="Name" />
+                                <label htmlFor="name">Name:</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={userData.name || ''}
+                                    onChange={(e) => setUserData({ ...userData, name: e.target.value })}
+                                />
                             </li>
                             <li>
-                                <input type="text" name="birthday" ref={register} placeholder="Birthday" />
+                                <label htmlFor="birthday">Birthday:</label>
+                                <input
+                                    type="text"
+                                    id="birthday"
+                                    name="birthday"
+                                    value={userData.birthday || ''}
+                                    onChange={(e) => setUserData({ ...userData, birthday: e.target.value })}
+                                />
                             </li>
                             <li>
-                                <input type="text" name="gender" ref={register} placeholder="Gender" />
+                                <label htmlFor="gender">Gender:</label>
+                                <input
+                                    type="text"
+                                    id="gender"
+                                    name="gender"
+                                    value={userData.gender || ''}
+                                    onChange={(e) => setUserData({ ...userData, gender: e.target.value })}
+                                />
                             </li>
                         </ul>
                         <li>Contact Info:</li>
                         <ul>
                             <li>
-                                <input type="text" name="phone" ref={register} placeholder="Phone" />
+                                <label htmlFor="phone">Phone:</label>
+                                <input
+                                    type="text"
+                                    id="phone"
+                                    name="phone"
+                                    value={userData.phone || ''}
+                                    onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
+                                />
                             </li>
                         </ul>
                         <li>Address Info:</li>
                         <ul>
                             <li>
-                                <input type="text" name="homeAddress" ref={register} placeholder="Home" />
+                                <label htmlFor="homeAddress">Home Address:</label>
+                                <input
+                                    type="text"
+                                    id="homeAddress"
+                                    name="homeAddress"
+                                    value={userData.homeAddress || ''}
+                                    onChange={(e) => setUserData({ ...userData, homeAddress: e.target.value })}
+                                />
                             </li>
                             <li>
-                                <input type="text" name="workAddress" ref={register} placeholder="Work" />
+                                <label htmlFor="workAddress">Work Address:</label>
+                                <input
+                                    type="text"
+                                    id="workAddress"
+                                    name="workAddress"
+                                    value={userData.workAddress || ''}
+                                    onChange={(e) => setUserData({ ...userData, workAddress: e.target.value })}
+                                />
                             </li>
                         </ul>
                     </ul>
@@ -99,11 +143,13 @@ function Profile() {
                     <h5>Account</h5>
                     <ul>
                         <li>
+                            <label htmlFor="billingInfo">Billing Information:</label>
                             <input
                                 type="text"
+                                id="billingInfo"
                                 name="billingInfo"
-                                ref={register}
-                                placeholder="Billing Information"
+                                value={userData.billingInfo || ''}
+                                onChange={(e) => setUserData({ ...userData, billingInfo: e.target.value })}
                             />
                         </li>
                     </ul>
@@ -112,10 +158,24 @@ function Profile() {
                     <h5>Emails</h5>
                     <ul>
                         <li>
-                            <input type="email" name="privateEmail" ref={register} placeholder="Private Email" />
+                            <label htmlFor="privateEmail">Private Email:</label>
+                            <input
+                                type="email"
+                                id="privateEmail"
+                                name="privateEmail"
+                                value={userData.privateEmail || ''}
+                                onChange={(e) => setUserData({ ...userData, privateEmail: e.target.value })}
+                            />
                         </li>
                         <li>
-                            <input type="email" name="workEmail" ref={register} placeholder="Work Email" />
+                            <label htmlFor="workEmail">Work Email:</label>
+                            <input
+                                type="email"
+                                id="workEmail"
+                                name="workEmail"
+                                value={userData.workEmail || ''}
+                                onChange={(e) => setUserData({ ...userData, workEmail: e.target.value })}
+                            />
                         </li>
                         <li>Delete All Emails</li>
                         <li>Block Accessibility</li>

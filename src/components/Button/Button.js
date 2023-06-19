@@ -1,10 +1,17 @@
 import React from 'react';
+import './Button.css';
 
-function Button() {
+function Button({ buttonText, buttonType, className, clickHandler, disabled = false, icon }) {
     return (
-        <div>
-            <button type="button">Button</button>
-        </div>
+        <button
+            type={buttonType}
+            className={`button ${className}`}
+            onClick={clickHandler}
+            disabled={disabled}
+        >
+            {icon && <img src={icon} alt="icon" className="button-icon" />}
+            {buttonText && <span className="button-text">{buttonText}</span>}
+        </button>
     );
 }
 

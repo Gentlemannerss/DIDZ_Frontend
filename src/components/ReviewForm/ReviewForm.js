@@ -11,7 +11,7 @@ function ReviewForm({ product }) {
             reviewDescription: reviewDescription,
         };
         console.log(reviewFormData);
-        // You can perform further actions with the review form data, such as sending it to the backend
+        //Send it here to the backend!
     }
 
     return (
@@ -20,7 +20,6 @@ function ReviewForm({ product }) {
 
             <fieldset>
                 <legend>Score</legend>
-                {/* You can implement a star rating component here */}
                 <div>
                     <label>
                         <input
@@ -84,7 +83,7 @@ function ReviewForm({ product }) {
                         id="review-description"
                         rows="4"
                         cols="40"
-                        placeholder="Enter your review description"
+                        placeholder="Enter here your honest review."
                         value={reviewDescription}
                         onChange={(e) => setReviewDescription(e.target.value)}
                     ></textarea>

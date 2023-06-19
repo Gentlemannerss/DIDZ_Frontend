@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import './ContactForm.css';
+import Button from "../Button/Button";
 
 function ContactForm() {
     const [companyName, setCompanyName] = useState('');
@@ -25,7 +27,7 @@ function ContactForm() {
     return (
         <form onSubmit={handleSubmit}>
             <fieldset>
-                <legend>Company Details</legend>
+                <legend>What is you're information</legend>
 
                 <label htmlFor="company-name">
                     Company Name:
@@ -37,7 +39,7 @@ function ContactForm() {
                         onChange={(e) => setCompanyName(e.target.value)}
                     />
                 </label>
-
+                <br/>
                 <label htmlFor="contact-name">
                     Contact Name:
                     <input
@@ -48,7 +50,7 @@ function ContactForm() {
                         onChange={(e) => setName(e.target.value)}
                     />
                 </label>
-
+                <br/>
                 <label htmlFor="phone-number">
                     Phone Number:
                     <input
@@ -59,7 +61,7 @@ function ContactForm() {
                         onChange={(e) => setPhoneNumber(e.target.value)}
                     />
                 </label>
-
+                <br/>
                 <label htmlFor="email">
                     Email:
                     <input
@@ -73,10 +75,10 @@ function ContactForm() {
             </fieldset>
 
             <fieldset>
-                <legend>Contact Description</legend>
+                <legend>Description</legend>
 
                 <label htmlFor="description">
-                    Description:
+                    Please leave a description:
                     <textarea
                         name="description"
                         id="description"
@@ -87,7 +89,7 @@ function ContactForm() {
                         onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
                 </label>
-
+                <br/>
                 <label htmlFor="terms-of-condition">
                     <input
                         type="checkbox"
@@ -97,8 +99,12 @@ function ContactForm() {
                     />
                     Agree to Terms of Condition
                 </label>
-
-                <button type="submit">Submit</button>
+                <br/>
+                <Button
+                    buttonType={'submit'}
+                    buttonText={'Submit'}
+                    className={'submitForm'}
+                />
             </fieldset>
         </form>
     );

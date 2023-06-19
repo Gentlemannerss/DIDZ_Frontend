@@ -1,14 +1,16 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import Button from "../Button/Button";
+import './Header.css';
 
-function Header({ isAuth, openLoginOverlay }) {
+
+function Header({ openLoginOverlay, handleLogout, isAuth }) {
     return (
         <div>
             <div className="outerContainer">
                 <nav className="innerContainer navigation">
-                    <ul className="nav-ul-top">
-                        <li className="nav-li-top">
+                    <ul className="">
+                        <li className="">
                             <NavLink
                                 className={({ isActive }) =>
                                     isActive ? 'active-nav-link' : 'default-nav-link'
@@ -18,7 +20,7 @@ function Header({ isAuth, openLoginOverlay }) {
                                 Home
                             </NavLink>
                         </li>
-                        <li className="nav-li-top">
+                        <li className="">
                             <NavLink
                                 className={({ isActive }) =>
                                     isActive ? 'active-nav-link' : 'default-nav-link'
@@ -28,7 +30,7 @@ function Header({ isAuth, openLoginOverlay }) {
                                 Contact
                             </NavLink>
                         </li>
-                        <li className="nav-li-top">
+                        <li className="">
                             <NavLink
                                 className={({ isActive }) =>
                                     isActive ? 'active-nav-link' : 'default-nav-link'
@@ -40,7 +42,7 @@ function Header({ isAuth, openLoginOverlay }) {
                         </li>
                         {isAuth && (
                             <>
-                                <li className="nav-li-top">
+                                <li className="">
                                     <NavLink
                                         className={({ isActive }) =>
                                             isActive ? 'active-nav-link' : 'default-nav-link'
@@ -50,7 +52,7 @@ function Header({ isAuth, openLoginOverlay }) {
                                         Profile
                                     </NavLink>
                                 </li>
-                                <li className="nav-li-top">
+                                <li className="">
                                     <NavLink
                                         className={({ isActive }) =>
                                             isActive ? 'active-nav-link' : 'default-nav-link'
@@ -60,7 +62,7 @@ function Header({ isAuth, openLoginOverlay }) {
                                         StudyGroup
                                     </NavLink>
                                 </li>
-                                <li className="nav-li-top">
+                                <li className="">
                                     <NavLink
                                         className={({ isActive }) =>
                                             isActive ? 'active-nav-link' : 'default-nav-link'
@@ -70,7 +72,7 @@ function Header({ isAuth, openLoginOverlay }) {
                                         Review
                                     </NavLink>
                                 </li>
-                                <li className="nav-li-top">
+                                <li className="">
                                     <NavLink
                                         className={({ isActive }) =>
                                             isActive ? 'active-nav-link' : 'default-nav-link'
@@ -80,7 +82,7 @@ function Header({ isAuth, openLoginOverlay }) {
                                         MessageBoard
                                     </NavLink>
                                 </li>
-                                <li className="nav-li-top">
+                                <li className="">
                                     <NavLink
                                         className={({ isActive }) =>
                                             isActive ? 'active-nav-link' : 'default-nav-link'
@@ -90,26 +92,40 @@ function Header({ isAuth, openLoginOverlay }) {
                                         Messages
                                     </NavLink>
                                 </li>
+                                <li className="">
+                                    <Button
+                                        clickHandler={handleLogout}
+                                        buttonText={'Logout'}
+                                    />
+                                </li>
                             </>
                         )}
                         {!isAuth && (
-                            <li className="nav-li-top">
-                                <button className="login-button" onClick={openLoginOverlay}>
-                                    Login
-                                </button>
+                            <li className="">
+                                <Button
+                                    buttonText={'Login'}
+                                    className={'login-button'}
+                                    buttonType={Button}
+                                    clickHandler={openLoginOverlay}
+                                />
                             </li>
                         )}
                     </ul>
                 </nav>
             </div>
             <div className="outerContainer, heroSection">
-                <section className="innerContainer headerSection">
-                    <div>
-                        <h1>Giving your college the best level of digital knowledge.</h1>
+                <section className="innerContainer, heroContent">
+                    <div className="textContainer">
+                        <h1>Giving your college the next digital levelgi.</h1>
                         <p>
                             We offer different services to help everyone get to the next level of digital knowledge.
                         </p>
-                        <Button>Learn More</Button>
+                        <Button
+                            buttonText={'Learn More'}
+                            className={'learn-more'}
+                            buttonType={Button}
+                            // todo add link to product page
+                        />
                     </div>
                     <img src="" alt="logo" />
                 </section>

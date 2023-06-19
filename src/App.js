@@ -1,4 +1,4 @@
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import './App.css';
 
 // Import Components
@@ -11,16 +11,15 @@ import Profile from "./pages/Profile/Profile";
 import StudyGroup from "./pages/StudyGroup/StudyGroup"
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products"
-import Login from "./pages/AuthPages/Login"
-import SignUp from "./pages/AuthPages/SingUp"
 import Review from "./pages/Review/Review"
 import MessageBoard from "./pages/MessageBoard/MessageBoard"
 import Message from "./pages/Message/Message"
-import {useState} from "react";
+import {useContext, useState} from "react";
 import LoginOverlay from "./components/LoginOverlay/LoginOverlay";
+import {AuthContext} from "./context/AuthContext";
 
 function App() {
-    const [isAuth, toggleAuthentication] = useState(false);
+    const { isAuth, logout } = useContext(AuthContext);
     const [isLoginOverlayOpen, setIsLoginOverlayOpen] = useState(false);
 
     const openLoginOverlay = () => {
@@ -31,25 +30,27 @@ function App() {
         setIsLoginOverlayOpen(false);
     };
 
+    const handleLogout = () => {
+        logout();
+    };
+
     return (
         <>
             <div className="app-container">
-            <Header isAuth={isAuth} openLoginOverlay={openLoginOverlay} />
+            <Header isAuth={isAuth.isAuth} openLoginOverlay={openLoginOverlay} handleLogout={handleLogout}/>
             {isLoginOverlayOpen && <LoginOverlay onClose={closeLoginOverlay} />}
             <main>
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/contact" element={<Contact/>}/>
                     <Route path="/products" element={<Products/>}/>
-                    <Route path="/login" element={<Login/>}/>
-                    <Route path="/signup" element={<SignUp/>}/>
 
                     {/* Authorized pages */}
-                    <Route path="/profile" element={<Profile/>}/>
-                    <Route path="/study group" element={<StudyGroup/>}/>
-                    <Route path="/review" element={<Review/>}/>
-                    <Route path="/messageboard" element={<MessageBoard/>}/>
-                    <Route path="/messages" element={<Message/>}/>
+                    <Route path="/profile" element={isAuth.isAuth ? <Profile/> : <Navigate to="/"/>} />
+                    <Route path="/studygroup" element={isAuth.isAuth ? <StudyGroup/> : <Navigate to="/"/>}/>
+                    <Route path="/review" element={isAuth.isAuth ? <Review/> : <Navigate to="/"/>}/>
+                    <Route path="/messageboard" element={isAuth.isAuth ? <MessageBoard/> : <Navigate to="/"/>}/>
+                    <Route path="/messages" element={isAuth.isAuth ? <Message/> : <Navigate to="/"/>}/>
                 </Routes>
             </main>
             <Footer/>

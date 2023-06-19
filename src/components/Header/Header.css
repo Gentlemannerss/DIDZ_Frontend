@@ -1,0 +1,67 @@
+nav{
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 1px 2px rgba(0,0,0,.06);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem;
+    position: sticky; /*todo -how can i make this sticky?*/
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+nav ul{
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1rem;
+}
+
+nav ul li{
+    display: flex;
+    align-items: center;
+}
+
+nav ul li a{
+    color: #999;
+    text-decoration: none;
+    transition: color .2s ease-in-out;
+}
+
+nav ul li a:hover{
+    color: #000;
+}
+
+.active-nav-link{
+    color: #000;
+}
+
+.default-nav-link{
+    color: #999;
+}
+
+.heroSection{
+    background-color: #333333;
+    padding: 2rem;
+    text-align: center;
+    color: #fff;
+}
+
+.heroContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.textContainer {
+    flex: 1;
+}
+
+.logo {
+    max-width: 100%;
+    height: auto;
+}

@@ -8,14 +8,14 @@ import { Link } from "react-router-dom";
 
 function LoginOverlay({ onClose, isAuth }) {
     const [isLoggedIn, setIsLoggedIn] = useState(isAuth);
-    const [formMode, setFormMode] = useState('login'); // 'login' or 'signup'
+    const [formMode, setFormMode] = useState('login');
 
     const { login } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
 
     async function onSubmit(data){
         try {
-            const result = await axios.post("http://localhost:3000/login", data);
+            const result = await axios.post("http://localhost:3000/login", data); //todo change to localhost:8080
             console.log(result);
             const token = result.data.accessToken;
             localStorage.setItem('token', token);
@@ -38,7 +38,6 @@ function LoginOverlay({ onClose, isAuth }) {
             <div className="login-container">
                 <div className="blur-background" onClick={onClose}></div>
                 <div className="login-form">
-                    {/* Login form components go here */}
                     {isLoggedIn ? (
                         <button className="logout-button" onClick={handleLogout}>
                             Logout

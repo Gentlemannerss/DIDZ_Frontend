@@ -23,7 +23,7 @@ function AuthContextProvider({ children }) {
             user: null,
         })
         console.log("Gebruiker is uitgelogd")
-        navigate('/signin')
+        navigate('/')
     }
 
     const data = {
