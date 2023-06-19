@@ -20,7 +20,7 @@ import {useState} from "react";
 import LoginOverlay from "./components/LoginOverlay/LoginOverlay";
 
 function App() {
-    const [isAuth, toggleAuthentication] = useState(true);
+    const [isAuth, toggleAuthentication] = useState(false);
     const [isLoginOverlayOpen, setIsLoginOverlayOpen] = useState(false);
 
     const openLoginOverlay = () => {
