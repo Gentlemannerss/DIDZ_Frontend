@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 
 function LoginOverlay({ onClose, isAuth }) {
     const [isLoggedIn, setIsLoggedIn] = useState(isAuth);
+    const [formMode, setFormMode] = useState('login'); // 'login' or 'signup'
 
     const { login } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
@@ -27,6 +28,11 @@ function LoginOverlay({ onClose, isAuth }) {
     const handleLogout = () => {
         setIsLoggedIn(false);
     };
+
+    const handleSwitchForm = () => {
+        setFormMode(formMode === 'login' ? 'signup' : 'login');
+    };
+
     return (
         <div className="login-overlay">
             <div className="login-container">
@@ -34,25 +40,61 @@ function LoginOverlay({ onClose, isAuth }) {
                 <div className="login-form">
                     {/* Login form components go here */}
                     {isLoggedIn ? (
-                    <button className="logout-button" onClick={handleLogout}>
-                        Logout
-                    </button>
-                    ) : (<>
-                        <h1>Inloggen</h1>
-                            <form onSubmit={handleSubmit(onSubmit)}>
-                                <div>
-                        <label>Emailadres:</label>
-                        <input type="email" {...register('email', { required: true })} />
-                        </div>
-                        <div>
-                        <label>Wachtwoord:</label>
-                        <input type="password" {...register('password', { required: true })} />
-                        </div>
-                        <button type="submit">Inloggen</button>
-                        </form>
-
-                        <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
-                    </>)}
+                        <button className="logout-button" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    ) : (
+                        <>
+                            {formMode === 'login' ? (
+                                <>
+                                    <h1>Inloggen</h1>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        <div>
+                                            <label>Emailadres:</label>
+                                            <input type="email" {...register('email', { required: true })} />
+                                        </div>
+                                        <div>
+                                            <label>Wachtwoord:</label>
+                                            <input type="password" {...register('password', { required: true })} />
+                                        </div>
+                                        <button type="submit">Inloggen</button>
+                                    </form>
+                                    <p>
+                                        Heb je nog geen account?{' '}
+                                        <Link to="#" onClick={handleSwitchForm}>
+                                            Registreer
+                                        </Link>{' '}
+                                        je dan eerst.
+                                    </p>
+                                </>
+                            ) : (
+                                <>
+                                    <h1>Registreren</h1>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        <div>
+                                            <label>Emailadres:</label>
+                                            <input type="email" {...register('email', { required: true })} />
+                                        </div>
+                                        <div>
+                                            <label>Wachtwoord:</label>
+                                            <input type="password" {...register('password', { required: true })} />
+                                        </div>
+                                        <div>
+                                            <label>Gebruikersnaam:</label>
+                                            <input type="text" {...register('username')} />
+                                        </div>
+                                        <button type="submit">Registreren</button>
+                                    </form>
+                                    <p>
+                                        Heb je al een account?{' '}
+                                        <Link to="#" onClick={handleSwitchForm}>
+                                            Log in
+                                        </Link>
+                                    </p>
+                                </>
+                            )}
+                        </>
+                    )}
                     <button className="close-button" onClick={onClose}>
                         Close
                     </button>
