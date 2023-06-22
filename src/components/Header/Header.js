@@ -6,9 +6,9 @@ import './Header.css';
 
 function Header({ openLoginOverlay, handleLogout, isAuth }) {
     return (
-        <div>
-            <div className="outerContainer">
-                <nav className="innerContainer navigation">
+        <>
+            <nav className="outerContainer navigation">
+                <div className="innerContainer">
                     <ul className="">
                         <li className="">
                             <NavLink
@@ -95,7 +95,7 @@ function Header({ openLoginOverlay, handleLogout, isAuth }) {
                                 <li className="">
                                     <Button
                                         clickHandler={handleLogout}
-                                        buttonText={'Logout'}
+                                        buttonText='Logout'
                                     />
                                 </li>
                             </>
@@ -103,34 +103,34 @@ function Header({ openLoginOverlay, handleLogout, isAuth }) {
                         {!isAuth && (
                             <li className="">
                                 <Button
-                                    buttonText={'Login'}
-                                    className={'login-button'}
-                                    buttonType={Button}
+                                    buttonText='Login'
+                                    className='login-button'
+                                    buttonType='button'
                                     clickHandler={openLoginOverlay}
                                 />
                             </li>
                         )}
                     </ul>
-                </nav>
-            </div>
+                </div>
+            </nav>
             <div className="outerContainer, heroSection">
                 <section className="innerContainer, heroContent">
                     <div className="textContainer">
-                        <h1>Giving your college the next digital levelgi.</h1>
+                        <h1>Giving your college the next digital level up!</h1>
                         <p>
-                            We offer different services to help everyone get to the next level of digital knowledge.
+                            We offer different services to help any level of digital college.
                         </p>
                         <Button
-                            buttonText={'Learn More'}
-                            className={'learn-more'}
-                            buttonType={Button}
-                            // todo add link to product page
+                            buttonText='Learn More'
+                            className='learn-more'
+                            buttonType='button'
+                            // todo add link to product page (maby clickhandler?)
                         />
                     </div>
                     <img src="" alt="logo" />
                 </section>
             </div>
-        </div>
+        </>
     );
 }
 

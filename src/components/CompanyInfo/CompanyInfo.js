@@ -4,7 +4,7 @@ import "./CompanyInfo.css";
 function CompanyInfo() {
     return (
         <div className="outerContainer">
-            <section className="innerContainer">
+            <section className="innerContainer companyContainer"> {/*classnames hebben geen comma ertussen, wel een spatie!!*/}
                 <div className="leftSection">
                     <h3>Company Name</h3>
                     <p>Company Info

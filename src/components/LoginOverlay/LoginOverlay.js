@@ -14,12 +14,16 @@ function LoginOverlay({ onClose, isAuth }) {
     const { register, handleSubmit } = useForm();
 
     async function onSubmit(data){
+        console.log(data)
         try {
-            const result = await axios.post("http://localhost:3000/login", data); //todo change to localhost:8080
-            console.log(result);
+            const result = await axios.post("http://localhost:8080/authenticate", {
+                username : data.username,
+                password : data.password
+            });
             const token = result.data.accessToken;
             localStorage.setItem('token', token);
             login(result.data.accessToken)
+            onClose()
         } catch (e) {
             console.error(e)
         }
@@ -49,8 +53,8 @@ function LoginOverlay({ onClose, isAuth }) {
                                     <h1>Inloggen</h1>
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <div>
-                                            <label>Emailadres:</label>
-                                            <input type="email" {...register('email', { required: true })} />
+                                            <label>Gebruikersnaam:</label>
+                                            <input type="text" {...register('username', { required: true })} />
                                         </div>
                                         <div>
                                             <label>Wachtwoord:</label>

@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import InvoiceForm from "../../components/InvoiceForm/InvoiceForm";
 import ProductSlider from "../../components/ProductSlider/ProductSlider";
+import WhatDoWeDo from "../../components/WhatDoWeDo/WhatDoWeDo";
 
 function Products() {
+    const [currentProduct, setCurrentProduct] = useState({});
+
     return (
         <div>
-            <ProductSlider />
+            <ProductSlider
+                currentProduct={currentProduct}
+                setCurrentProduct={setCurrentProduct}
+            />
+            <WhatDoWeDo />
+            {/*todo how to do this without br line, css margin?*/}
+            <br />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <InvoiceForm />
         </div>
     );

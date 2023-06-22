@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
 import fetchData from '../../utils/fetchData';
+import Button from "../../components/Button/Button";
 
 function Profile() {
     const { user, logout } = useContext(AuthContext);
@@ -26,13 +27,13 @@ function Profile() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchData("localhost:8080/users", setUserData, setIsLoading, setError, []);
+        fetchData("http://localhost:8080/users", setUserData, setIsLoading, setError, []);
     }, []);
 
     async function onSubmit(data) {
         setIsLoading(true);
         try {
-            const response = await axios.put("localhost:3000/users", data, {
+            const response = await axios.put("http://localhost:8080/users", data, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `${localStorage.getItem('token')}`
@@ -189,7 +190,10 @@ function Profile() {
                     </ul>
                 </div>
             </div>
-            <button type="submit">Submit</button>
+            <Button
+                buttonType="submit"
+                buttonText="Save your changes"
+            />
         </form>
     );
 }

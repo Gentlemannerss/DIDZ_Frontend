@@ -1,10 +1,10 @@
 import React from 'react';
-import "./OwnerInfo.css";
+import './OwnerInfo.css';
 
 function OwnerInfo() {
     return (
         <div className="outerContainer">
-            <section className="innerContainer">
+            <section className="innerContainer, ownerinfo">
                 <div className="imageContainer">
                     <img
                         className="coachImage"
@@ -13,31 +13,44 @@ function OwnerInfo() {
                     />
                     <div className="imageOverlay"></div>
                 </div>
-                <div className="informationToTheRight">
+                <div className="">
                     <div className="infoAboutTile">
-                        <h3>Your Name</h3>
+                        <h3>Damon van Bergen</h3>
                     </div>
                     <div className="segmentsContainer">
                         <div className="leftSegment">
                             <h4>Coding Languages</h4>
                             <ul>
-                                <li>Language 1</li>
-                                <li>Language 2</li>
-                                <li>Language 3</li>
+                                <li>Java</li>
+                                <li>SpringBoot</li>
+                                <li>Javascript</li>
+                                <li>React</li>
+                                <li>HTML & CSS</li>
                             </ul>
+                        </div>
+                        <div className="centerLeftSegment">
                             <h4>Microsoft Skills</h4>
                             <ul>
-                                <li>Skill 1</li>
-                                <li>Skill 2</li>
-                                <li>Skill 3</li>
+                                <li>OneDrive & SharePoint</li>
+                                <li>Word, Excel & PowerPoint</li>
+                                <li>Azure & Web Dynamics</li>
+                            </ul>
+                        </div>
+                        <div className="centerRightSegment">
+                            <h4>Coaching Skills</h4>
+                            <ul>
+                                <li>Active Listening</li>
+                                <li>Feedback & Reflection</li>
+                                <li>Motivation & Support</li>
+                                <li>Communication & Empathy</li>
                             </ul>
                         </div>
                         <div className="rightSegment">
                             <h4>Work Experience</h4>
                             <ul>
-                                <li>Company 1 - Position</li>
-                                <li>Company 2 - Position</li>
-                                <li>Company 3 - Position</li>
+                                <li>Severinus - Digicoach</li>
+                                <li>Belastingdienst - Duaal HBO-IT</li>
+                                <li>Axians - Traineeship Microsoft Dynamics </li>
                             </ul>
                         </div>
                     </div>

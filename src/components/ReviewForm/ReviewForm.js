@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from "axios";
+import PropTypes from "prop-types";
 
 function ReviewForm({ product }) {
     const [score, setScore] = useState(0);
@@ -9,15 +11,27 @@ function ReviewForm({ product }) {
         const reviewFormData = {
             score: score,
             reviewDescription: reviewDescription,
+            customerId : 1, //todo ID ophalen ingelogde gebruiker.
+            productId : product.productId,
         };
         console.log(reviewFormData);
         //Send it here to the backend!
+        createReview(reviewFormData)
     }
+
+    const createReview = async (review) => {
+        try {
+            const response = await axios.post('http://localhost:8080/reviews', review);
+
+            console.log(response.data)
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Reviewing {product}</h2>
-
+            <h2>Reviewing {product?.productName}</h2>
             <fieldset>
                 <legend>Score</legend>
                 <div>
@@ -96,3 +110,18 @@ function ReviewForm({ product }) {
 }
 
 export default ReviewForm;
+
+ReviewForm.propTypes = {
+    product : PropTypes.shape({
+        productId : PropTypes.number,
+        productName : PropTypes.string,
+        price : PropTypes.number,
+        productType : PropTypes.string,
+        reviews : PropTypes.arrayOf(PropTypes.shape({
+            reviewId : PropTypes.number,
+            score : PropTypes.number,
+            reviewDescription : PropTypes.string,
+            dateOfWriting : PropTypes.string
+        }))
+    })
+}

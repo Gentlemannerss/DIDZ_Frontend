@@ -39,7 +39,7 @@ function App() {
             <div className="app-container">
             <Header isAuth={isAuth.isAuth} openLoginOverlay={openLoginOverlay} handleLogout={handleLogout}/>
             {isLoginOverlayOpen && <LoginOverlay onClose={closeLoginOverlay} />}
-            <main>
+            <main className="mainContainer">
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/contact" element={<Contact/>}/>

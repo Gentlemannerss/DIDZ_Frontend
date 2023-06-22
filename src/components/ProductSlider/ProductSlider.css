@@ -1,17 +1,42 @@
-.outerContainer {
+.productSlider {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 1rem;
 }
 
-.innerContainer {
-    flex-basis: 1200px;
+.productImage img {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.productInfo {
+    flex: 1;
+    padding: 0 1rem;
+    text-align: center; /* Add this line to center align the product info */
+}
+
+.productInfo h4 {
+    margin-top: 0;
+}
+
+.arrowButtons {
     display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    margin: 1rem;
+}
+
+.arrowButtons button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0 0.5rem;
+}
+
+.arrowButtons p {
+    margin: 0 1rem;
+    font-size: 1rem;
+    font-weight: bold;
 }

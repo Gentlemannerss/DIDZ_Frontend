@@ -1,72 +1,12 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Button from '../Button/Button';
-import './ProductSlider.css';
+import Product from "../Product/Product";
+import PropTypes from "prop-types";
+import axios from "axios";
 
-const ProductSlider = () => {
-    const products = [
-        {
-            id: 1,
-            title: 'Product 1',
-            description: 'Description for Product 1',
-            image: 'path_to_image_1',
-        },
-        {
-            id: 2,
-            title: 'Product 2',
-            description: 'Description for Product 2',
-            image: 'path_to_image_2',
-        },
-        {
-            id: 3,
-            title: 'Product 3',
-            description: 'Description for Product 3',
-            image: 'path_to_image_3',
-        },
-    ];
-
-    const [currentProduct, setCurrentProduct] = useState(0);
-
-    const handleNextProduct = () => {
-        setCurrentProduct((prevProduct) => (prevProduct === products.length - 1 ? 0 : prevProduct + 1));
-    };
-
-    const handlePreviousProduct = () => {
-        setCurrentProduct((prevProduct) => (prevProduct === 0 ? products.length - 1 : prevProduct - 1));
-    };
-
-    return (
-        <div className="outerContainer">
-            <section className="productSlider, innerContainer">
-                    <div className="productImage">
-                        <img src={products[currentProduct].image} alt={products[currentProduct].title} />
-                    </div>
-                    <div className="productInfo">
-                        <h4>{products[currentProduct].title}</h4>
-                        <p>{products[currentProduct].description}</p>
-                        <Button />
-                    </div>
-                    <div className="arrowButtons">
-                        <button onClick={handlePreviousProduct}>&lt;</button>
-                        <p>
-                            {currentProduct + 1} / {products.length}
-                        </p>
-                        <button onClick={handleNextProduct}>&gt;</button>
-                    </div>
-            </section>
-        </div>
-    );
-};
-
-export default ProductSlider;
-
-/* Option to use with Database?
-
-import React, { useState, useEffect } from 'react';
-import Button from './Button';
-
-const ProductSlider = () => {
+function ProductSlider ({ currentProduct, setCurrentProduct}) {
   const [products, setProducts] = useState([]);
-  const [currentProduct, setCurrentProduct] = useState(0);
+  const [currentProductIndex, setCurrentProductIndex] = useState(0);
 
   useEffect(() => {
     fetchProducts();
@@ -74,43 +14,69 @@ const ProductSlider = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await fetch('/api/products');
-      const data = await response.json();
-      setProducts(data);
+      const response = await axios.get('http://localhost:8080/products');
+      setProducts(response.data);
+      setCurrentProduct(response.data[currentProductIndex])
+      console.log(response.data)
     } catch (error) {
       console.error('Error fetching products:', error);
     }
   };
 
-  const handleNextProduct = () => {
-    setCurrentProduct((prevProduct) => (prevProduct === products.length - 1 ? 0 : prevProduct + 1));
-  };
+  if (products.length === 0) {
+    return <div>Loading...</div>; // Display a loading state when the products are being fetched
+  }
+  function handleNextProduct() {
+    const productIndex = () => {return (currentProductIndex === products.length - 1 ? 0 : currentProductIndex + 1)}
+    setCurrentProductIndex(productIndex());
+    setCurrentProduct(products[productIndex()]);
+  }
 
-  const handlePreviousProduct = () => {
-    setCurrentProduct((prevProduct) => (prevProduct === 0 ? products.length - 1 : prevProduct - 1));
-  };
+  function handlePreviousProduct() {
+    const productIndex = () => {return (currentProductIndex === 0 ? products.length - 1 : currentProductIndex - 1)}
+    setCurrentProductIndex(productIndex());
+    setCurrentProduct(products[productIndex()]);
+  }
 
   return (
     <div className="productSlider">
-      <div className="productImage">
-        <img src={products[currentProduct]?.image} alt={products[currentProduct]?.title} />
-      </div>
-      <div className="productInfo">
-        <h4>{products[currentProduct]?.title}</h4>
-        <p>{products[currentProduct]?.description}</p>
-        <Button />
-      </div>
+      {/*<div className="productImage">
+        <img src={products[currentProduct]?.image} alt={products[currentProduct]?.productName} />
+      </div>*/}
+      <Product
+        product={products[currentProductIndex]}
+      />
       <div className="arrowButtons">
-        <button onClick={handlePreviousProduct}>&lt;</button>
+        <Button
+        buttonText='&lt;'
+        clickHandler={handlePreviousProduct}
+        />
         <p>
-          {currentProduct + 1} / {products.length}
+          {currentProductIndex + 1} / {products.length}
         </p>
-        <button onClick={handleNextProduct}>&gt;</button>
+        <Button
+        buttonText='&gt;'
+        clickHandler={handleNextProduct}
+        />
       </div>
     </div>
   );
-};
+}
 
 export default ProductSlider;
 
-*/
+ProductSlider.propTypes = {
+  currentProduct : PropTypes.shape({
+  productId : PropTypes.number,
+  productName : PropTypes.string,
+  price : PropTypes.number,
+  productType : PropTypes.string,
+  reviews : PropTypes.arrayOf(PropTypes.shape({
+    reviewId : PropTypes.number,
+    score : PropTypes.number,
+    reviewDescription : PropTypes.string,
+    dateOfWriting : PropTypes.string
+  }))
+}),
+  setCurrentProduct : PropTypes.func
+}
