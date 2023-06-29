@@ -14,6 +14,7 @@ function Products() {
             />
             <WhatDoWeDo />
             {/*todo how to do this without br line, css margin?*/}
+            {/* een pseudo of after element*/}
             <br />
             <br/>
             <br/>

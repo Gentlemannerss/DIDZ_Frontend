@@ -14,18 +14,19 @@ function LoginOverlay({ onClose, isAuth }) {
     const { register, handleSubmit } = useForm();
 
     async function onSubmit(data){
-        console.log(data)
         try {
             const result = await axios.post("http://localhost:8080/authenticate", {
                 username : data.username,
                 password : data.password
             });
-            const token = result.data.accessToken;
+            const token = result.data.jwt;
+            console.log(result)
             localStorage.setItem('token', token);
-            login(result.data.accessToken)
+            localStorage.setItem('userId', result.data.userId);
+            login(token, '/profile')
             onClose()
         } catch (e) {
-            console.error(e)
+            console.error("Onjuist email en wachtwoord combinatie" + e)
         }
     }
 

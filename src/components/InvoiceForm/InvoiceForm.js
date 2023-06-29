@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import axios from "axios";
 
 function InvoiceForm() {
-    const [address, setAddress] = useState('');
+    const [address, setAddress] = useState("");
     const [amountOfParticipants, setAmountOfParticipants] = useState(0);
-    const [selectedProduct, setSelectedProduct] = useState('');
-    const [invoiceAddress, setInvoiceAddress] = useState('');
-    const [frequencyOfSessions, setFrequencyOfSessions] = useState('');
+    const [selectedProduct, setSelectedProduct] = useState("");
+    const [invoiceAddress, setInvoiceAddress] = useState("");
+    const [frequencyOfSessions, setFrequencyOfSessions] = useState("");
     const [termsOfCondition, setTermsOfCondition] = useState(false);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [companyName, setCompanyName] = useState('');
-    const [description, setDescription] = useState('');
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [companyName, setCompanyName] = useState("");
+    const [description, setDescription] = useState("");
 
-    function handleSubmit(e) {
+    const { isAuth } = useContext(AuthContext);
+
+    async function handleSubmit(e) {
         e.preventDefault();
+
         const invoiceFormData = {
+            invoice : {
             address: address,
             amountOfParticipants: amountOfParticipants,
-            product: selectedProduct,
+            productsId: [100],
             invoiceAddress: invoiceAddress,
             frequencyOfSessions: frequencyOfSessions,
             termsOfCondition: termsOfCondition,
@@ -25,9 +31,46 @@ function InvoiceForm() {
             email: email,
             companyName: companyName,
             description: description,
+            },
+            userId : localStorage.getItem("userId"),
         };
-        console.log(invoiceFormData);
-        // You can perform further actions with the invoice form data, such as sending it to the backend
+
+        if (isAuth.isAuth) {
+            try {
+                const response = await axios.post(
+                    "http://localhost:8080/invoices/existing-user",
+                    invoiceFormData,
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${localStorage.getItem("token")}`,
+                        }
+                    }
+                );
+
+                console.log("Invoice data submitted for existing user:", response.data);
+
+            } catch (error) {
+                // Handle error
+                console.error(error);
+                // Display an error message to the user or handle the error in an appropriate way
+            }
+        } else {
+            // User is not logged in, use the endpoint for new users
+            try {
+                const response = await axios.post(
+                    "http://localhost:8080/invoices/new-user",
+                    invoiceFormData
+                );
+                // Handle the response
+                console.log("Invoice data submitted for new user:", response.data);
+                // Perform any additional actions based on the response, such as updating the UI
+            } catch (error) {
+                // Handle error
+                console.error(error);
+                // Display an error message to the user or handle the error in an appropriate way
+            }
+        }
     }
 
     return (
@@ -64,7 +107,7 @@ function InvoiceForm() {
                         id="products"
                         value={selectedProduct}
                         onChange={(e) => setSelectedProduct(e.target.value)}
-                    >
+                    > {/*todo create a function to get the products*/}
                         <option value="">Select a product</option>
                         <option value="Product 1">Product 1</option>
                         <option value="Product 2">Product 2</option>

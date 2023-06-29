@@ -11,7 +11,7 @@ function ReviewForm({ product }) {
         const reviewFormData = {
             score: score,
             reviewDescription: reviewDescription,
-            customerId : 1, //todo ID ophalen ingelogde gebruiker.
+            customerId : localStorage.getItem('userId'),
             productId : product.productId,
         };
         console.log(reviewFormData);
@@ -21,7 +21,12 @@ function ReviewForm({ product }) {
 
     const createReview = async (review) => {
         try {
-            const response = await axios.post('http://localhost:8080/reviews', review);
+            const response = await axios.post('http://localhost:8080/reviews', review, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
 
             console.log(response.data)
         } catch (error) {

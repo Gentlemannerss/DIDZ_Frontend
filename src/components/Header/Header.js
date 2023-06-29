@@ -1,10 +1,12 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import Button from "../Button/Button";
 import './Header.css';
 
 
 function Header({ openLoginOverlay, handleLogout, isAuth }) {
+    const navigate = useNavigate();
+
     return (
         <>
             <nav className="outerContainer navigation">
@@ -77,6 +79,16 @@ function Header({ openLoginOverlay, handleLogout, isAuth }) {
                                         className={({ isActive }) =>
                                             isActive ? 'active-nav-link' : 'default-nav-link'
                                         }
+                                        to="/invoice"
+                                    >
+                                        Invoices
+                                    </NavLink>
+                                </li>
+                                <li className="">
+                                    <NavLink
+                                        className={({ isActive }) =>
+                                            isActive ? 'active-nav-link' : 'default-nav-link'
+                                        }
                                         to="/messageboard"
                                     >
                                         MessageBoard
@@ -124,7 +136,7 @@ function Header({ openLoginOverlay, handleLogout, isAuth }) {
                             buttonText='Learn More'
                             className='learn-more'
                             buttonType='button'
-                            // todo add link to product page (maby clickhandler?)
+                            clickHandler= {() => navigate('/products')}
                         />
                     </div>
                     <img src="" alt="logo" />

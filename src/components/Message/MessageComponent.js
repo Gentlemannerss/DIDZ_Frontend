@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 
-function MessageComponent() {
+function MessageComponent({ setQuestions }) {
     const [message, setMessage] = useState('');
-    const [isSaved, setIsSaved] = useState(false);
 
     function handleInputChange(e) {
         setMessage(e.target.value);
     }
 
-
-    function handleSaveConcept() {
-        setIsSaved(true);
-        // You can perform further actions here, such as saving the message as a concept
+    function handleSaveQuestion() {
+        setQuestions((prevQuestions) => [...prevQuestions, message]);
+        setMessage('');
     }
 
     return (
@@ -26,8 +24,7 @@ function MessageComponent() {
                     cols={50}
                 ></textarea>
             </label>
-            <button onClick={handleSaveConcept}>Save as Concept</button>
-            {isSaved && <p>Message saved as concept</p>}
+            <button onClick={handleSaveQuestion}>Save as Question</button>
         </div>
     );
 }

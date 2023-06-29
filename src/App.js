@@ -4,6 +4,9 @@ import './App.css';
 // Import Components
 import Header from "./components/Header/Header"
 import Footer from "./components/Footer/Footer"
+import {useContext, useState} from "react";
+import LoginOverlay from "./components/LoginOverlay/LoginOverlay";
+import {AuthContext} from "./context/AuthContext";
 
 //Import Pages for Routes:
 import Contact from "./pages/Contact/Contact";
@@ -14,9 +17,7 @@ import Products from "./pages/Products/Products"
 import Review from "./pages/Review/Review"
 import MessageBoard from "./pages/MessageBoard/MessageBoard"
 import Message from "./pages/Message/Message"
-import {useContext, useState} from "react";
-import LoginOverlay from "./components/LoginOverlay/LoginOverlay";
-import {AuthContext} from "./context/AuthContext";
+import Invoice from "./pages/Invoice/Invoice";
 
 function App() {
     const { isAuth, logout } = useContext(AuthContext);
@@ -47,6 +48,7 @@ function App() {
 
                     {/* Authorized pages */}
                     <Route path="/profile" element={isAuth.isAuth ? <Profile/> : <Navigate to="/"/>} />
+                    <Route path="/invoice" element={isAuth.isAuth ? <Invoice/> : <Navigate to="/"/>} />
                     <Route path="/studygroup" element={isAuth.isAuth ? <StudyGroup/> : <Navigate to="/"/>}/>
                     <Route path="/review" element={isAuth.isAuth ? <Review/> : <Navigate to="/"/>}/>
                     <Route path="/messageboard" element={isAuth.isAuth ? <MessageBoard/> : <Navigate to="/"/>}/>
