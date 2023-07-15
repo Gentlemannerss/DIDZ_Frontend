@@ -3,6 +3,7 @@ import Button from '../Button/Button';
 import Product from "../Product/Product";
 import PropTypes from "prop-types";
 import axios from "axios";
+import './ProductSlider.css';
 
 function ProductSlider ({ currentProduct, setCurrentProduct}) {
   const [products, setProducts] = useState([]);
@@ -39,27 +40,31 @@ function ProductSlider ({ currentProduct, setCurrentProduct}) {
   }
 
   return (
-    <div className="productSlider">
-      {/*<div className="productImage">
-        <img src={products[currentProduct]?.image} alt={products[currentProduct]?.productName} />
-      </div>*/}
-      <Product
-        product={products[currentProductIndex]}
-      />
-      <div className="arrowButtons">
-        <Button
-        buttonText='&lt;'
-        clickHandler={handlePreviousProduct}
-        />
-        <p>
-          {currentProductIndex + 1} / {products.length}
-        </p>
-        <Button
-        buttonText='&gt;'
-        clickHandler={handleNextProduct}
-        />
+      <div className="outerContainer">
+        <div className="innerContainer productSlider">
+          {/*<div className="productImage">
+            <img src={products[currentProduct]?.image} alt={products[currentProduct]?.productName} />
+          </div>*/}
+          <Product
+            product={products[currentProductIndex]}
+          />
+          <div className="arrowButtons">
+            <Button
+            buttonText='&lt;'
+            clickHandler={handlePreviousProduct}
+            className={'previousButton'}
+            />
+            <p>
+              {currentProductIndex + 1} / {products.length}
+            </p>
+            <Button
+            buttonText='&gt;'
+            clickHandler={handleNextProduct}
+            className={'nextButton'}
+            />
+          </div>
+        </div>
       </div>
-    </div>
   );
 }
 

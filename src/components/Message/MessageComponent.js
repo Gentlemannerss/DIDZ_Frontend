@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
 
-function MessageComponent({ setQuestions }) {
-    const [message, setMessage] = useState('');
+function MessageComponent({ message, setMessage }) {
 
-    function handleInputChange(e) {
+
+    /*function handleInputChange(e) {
         setMessage(e.target.value);
     }
 
     function handleSaveQuestion() {
-        setQuestions((prevQuestions) => [...prevQuestions, message]);
-        setMessage('');
-    }
+        setMessage(message);
+    }*/
 
     return (
         <div>
@@ -19,14 +19,19 @@ function MessageComponent({ setQuestions }) {
                 Message:
                 <textarea
                     value={message}
-                    onChange={handleInputChange}
+                    onChange={(e) => setMessage(e.target.value)}
                     rows={6}
                     cols={50}
                 ></textarea>
             </label>
-            <button onClick={handleSaveQuestion}>Save as Question</button>
         </div>
     );
 }
 
 export default MessageComponent;
+
+MessageComponent.propTypes = {
+    messageComponent: PropTypes.shape({
+        setQuestions: PropTypes.func.isRequired,
+    })
+};

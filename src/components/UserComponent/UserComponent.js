@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import "./UserComponent.css";
+import { AuthContext } from "../../context/AuthContext";
 
 function UserComponent() {
     const [selectedAccount, setSelectedAccount] = useState('User');
+    const { isAuth } = useContext(AuthContext);
 
     const handleAccountSelect = (account) => {
         setSelectedAccount(account);
@@ -11,18 +13,11 @@ function UserComponent() {
     return (
         <div className="outerContainer">
             <div className="innerContainer">
-            <div className="profilePicture">
-                <img src="https://via.placeholder.com/150" alt="Profile" />
-            </div>
-            <div className="userSelector">
-                <div className="arrow"></div>
-                <h5 onClick={() => handleAccountSelect('User')}>{selectedAccount}</h5>
-                <ul className="accountList">
-                    <li onClick={() => handleAccountSelect('Account 1')}>Account 1</li>
-                    <li onClick={() => handleAccountSelect('Account 2')}>Account 2</li>
-                    <li onClick={() => handleAccountSelect('Account 3')}>Account 3</li>
-                </ul>
-            </div>
+                <div className="profilePicture">
+                    <h4>{isAuth && isAuth.user ? isAuth.user.username : 'Unknown User'}</h4>
+                    <img src="https://via.placeholder.com/150" alt="Profile" />
+                    {/*todo : zorg voor een profile picture*/}
+                </div>
             </div>
         </div>
     );

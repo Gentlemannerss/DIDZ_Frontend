@@ -21,13 +21,22 @@
     align-items: center;
 }
 
-.coachImage {
-    width: 200px;
-    height: auto;
+.ownerinfo::after {
+    content: "My experience";
+    position: absolute;
+    /*todo: zorg dat de text met een top of iets boven in de div komt te hangen.*/
+    z-index: -1;
+    color: #034078;
+    opacity: 0.2;
+    font-size: 4rem;
+    font-weight: bold;
+
 }
 
-.imageContainer:hover .imageOverlay {
-    opacity: 1;
+.ownerImage {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
 }
 
 .infoAboutTile {

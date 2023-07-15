@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
@@ -7,14 +7,30 @@ function InvoiceForm() {
     const [amountOfParticipants, setAmountOfParticipants] = useState(0);
     const [selectedProduct, setSelectedProduct] = useState("");
     const [invoiceAddress, setInvoiceAddress] = useState("");
-    const [frequencyOfSessions, setFrequencyOfSessions] = useState("");
+    const [frequency, setfrequency] = useState("");
     const [termsOfCondition, setTermsOfCondition] = useState(false);
-    const [name, setName] = useState("");
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [companyName, setCompanyName] = useState("");
-    const [description, setDescription] = useState("");
+    const [comments, setComments] = useState("");
+    const [products, setProducts] = useState([]);
+    const [password, setPassword] = useState("");
+    const [fullName, setFullName] = useState("");
 
     const { isAuth } = useContext(AuthContext);
+
+    useEffect(() => {
+        fetchProducts();
+    }, []);
+
+    async function fetchProducts() {
+        try {
+            const response = await axios.get("http://localhost:8080/products");
+            setProducts(response.data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -23,22 +39,25 @@ function InvoiceForm() {
             invoice : {
             address: address,
             amountOfParticipants: amountOfParticipants,
-            productsId: [100],
+            productsId: [selectedProduct],
             invoiceAddress: invoiceAddress,
-            frequencyOfSessions: frequencyOfSessions,
+            frequency: frequency,
             termsOfCondition: termsOfCondition,
-            name: name,
-            email: email,
             companyName: companyName,
-            description: description,
+            comments : comments,
+            },
+            user : {
+                username: username,
+                email: email,
+                password: password,
+                fullName: fullName,
             },
             userId : localStorage.getItem("userId"),
         };
 
         if (isAuth.isAuth) {
             try {
-                const response = await axios.post(
-                    "http://localhost:8080/invoices/existing-user",
+                const response = await axios.post("http://localhost:8080/invoices/existing-user",
                     invoiceFormData,
                     {
                         headers: {
@@ -61,6 +80,7 @@ function InvoiceForm() {
                 const response = await axios.post(
                     "http://localhost:8080/invoices/new-user",
                     invoiceFormData
+
                 );
                 // Handle the response
                 console.log("Invoice data submitted for new user:", response.data);
@@ -72,7 +92,6 @@ function InvoiceForm() {
             }
         }
     }
-
     return (
         <form onSubmit={handleSubmit}>
             <fieldset>
@@ -85,10 +104,11 @@ function InvoiceForm() {
                         name="address"
                         id="address"
                         value={address}
+                        placeholder={"Enter your address"}
                         onChange={(e) => setAddress(e.target.value)}
                     />
                 </label>
-
+                <br />
                 <label htmlFor="amount-of-participants">
                     Amount of Participants:
                     <input
@@ -99,7 +119,7 @@ function InvoiceForm() {
                         onChange={(e) => setAmountOfParticipants(parseInt(e.target.value))}
                     />
                 </label>
-
+                <br />
                 <label htmlFor="products">
                     Products:
                     <select
@@ -107,14 +127,16 @@ function InvoiceForm() {
                         id="products"
                         value={selectedProduct}
                         onChange={(e) => setSelectedProduct(e.target.value)}
-                    > {/*todo create a function to get the products*/}
+                    >
                         <option value="">Select a product</option>
-                        <option value="Product 1">Product 1</option>
-                        <option value="Product 2">Product 2</option>
-                        <option value="Product 3">Product 3</option>
+                        {products.map((product) => (
+                            <option key={product.productId} value={product.productId}>
+                                {product.productName}
+                            </option>
+                        ))}
                     </select>
                 </label>
-
+                <br />
                 <label htmlFor="invoice-address">
                     Invoice Address:
                     <input
@@ -122,21 +144,35 @@ function InvoiceForm() {
                         name="invoiceAddress"
                         id="invoice-address"
                         value={invoiceAddress}
+                        placeholder={"Enter your invoice address"}
                         onChange={(e) => setInvoiceAddress(e.target.value)}
                     />
                 </label>
-
+                <br />
                 <label htmlFor="frequency-of-sessions">
                     Frequency of Sessions (optional):
                     <input
                         type="text"
                         name="frequencyOfSessions"
                         id="frequency-of-sessions"
-                        value={frequencyOfSessions}
-                        onChange={(e) => setFrequencyOfSessions(e.target.value)}
+                        value={frequency}
+                        placeholder={"Enter the frequency of sessions you want"}
+                        onChange={(e) => setfrequency(e.target.value)}
                     />
                 </label>
-
+                <br />
+                <label htmlFor="company-name">
+                    Company Name:
+                    <input
+                        type="text"
+                        name="companyName"
+                        id="company-name"
+                        value={companyName}
+                        placeholder={"Enter your company name"}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                    />
+                </label>
+                <br />
                 <label htmlFor="terms-of-condition">
                     <input
                         type="checkbox"
@@ -148,17 +184,44 @@ function InvoiceForm() {
                 </label>
             </fieldset>
 
-            <fieldset>
-                <legend>Contact Information</legend>
+            <label htmlFor="description">
+                Please leave you're comments here:<br />
+                <textarea
+                    name="comments"
+                    id="comments"
+                    rows="4"
+                    cols="73"
+                    placeholder="Enter the comments"
+                    value={comments}
+                    onChange={(e) => setComments(e.target.value)}
+                ></textarea>
+            </label>
 
-                <label htmlFor="name">
+            {!isAuth.isAuth &&
+            <fieldset>
+                <legend>Account Information</legend>
+
+                <label htmlFor="username">
                     Name:
                     <input
                         type="text"
-                        name="name"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        name="username"
+                        id="username"
+                        value={username}
+                        placeholder={"Enter your username"}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                </label>
+
+                <label htmlFor="fullName">
+                    Full Name:
+                    <input
+                        type="text"
+                        name="fullName"
+                        id="fullName"
+                        value={fullName}
+                        placeholder={"Enter your full name"}
+                        onChange={(e) => setFullName(e.target.value)}
                     />
                 </label>
 
@@ -169,34 +232,24 @@ function InvoiceForm() {
                         name="email"
                         id="email"
                         value={email}
+                        placeholder={"Enter your email"}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
 
-                <label htmlFor="company-name">
-                    Company Name:
+                <label htmlFor="password">
+                    Password:
                     <input
-                        type="text"
-                        name="companyName"
-                        id="company-name"
-                        value={companyName}
-                        onChange={(e) => setCompanyName(e.target.value)}
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={password}
+                        placeholder={"Enter your password"}
+                        onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
-
-                <label htmlFor="description">
-                    Description:
-                    <textarea
-                        name="description"
-                        id="description"
-                        rows="4"
-                        cols="40"
-                        placeholder="Enter the description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    ></textarea>
-                </label>
             </fieldset>
+            }
 
             <button type="submit">Submit</button>
         </form>

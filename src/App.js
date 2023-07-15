@@ -2,7 +2,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import './App.css';
 
 // Import Components
-import Header from "./components/Header/Header"
+import Navigation from "./components/Navigation/Navigation"
 import Footer from "./components/Footer/Footer"
 import {useContext, useState} from "react";
 import LoginOverlay from "./components/LoginOverlay/LoginOverlay";
@@ -38,7 +38,7 @@ function App() {
     return (
         <>
             <div className="app-container">
-            <Header isAuth={isAuth.isAuth} openLoginOverlay={openLoginOverlay} handleLogout={handleLogout}/>
+            <Navigation isAuth={isAuth.isAuth} openLoginOverlay={openLoginOverlay} handleLogout={handleLogout}/>
             {isLoginOverlayOpen && <LoginOverlay onClose={closeLoginOverlay} />}
             <main className="mainContainer">
                 <Routes>
@@ -51,7 +51,7 @@ function App() {
                     <Route path="/invoice" element={isAuth.isAuth ? <Invoice/> : <Navigate to="/"/>} />
                     <Route path="/studygroup" element={isAuth.isAuth ? <StudyGroup/> : <Navigate to="/"/>}/>
                     <Route path="/review" element={isAuth.isAuth ? <Review/> : <Navigate to="/"/>}/>
-                    <Route path="/messageboard" element={isAuth.isAuth ? <MessageBoard/> : <Navigate to="/"/>}/>
+                    <Route path="/messageboard/:id" element={isAuth.isAuth ? <MessageBoard/> : <Navigate to="/"/>}/>
                     <Route path="/messages" element={isAuth.isAuth ? <Message/> : <Navigate to="/"/>}/>
                 </Routes>
             </main>

@@ -1,130 +1,12 @@
 import React from 'react';
-import {NavLink, useNavigate} from 'react-router-dom';
 import Button from "../Button/Button";
 import './Header.css';
+import { useNavigate} from 'react-router-dom';
+import logo from '../../assets/Logo.webp';
 
-
-function Header({ openLoginOverlay, handleLogout, isAuth }) {
+function Header() {
     const navigate = useNavigate();
-
     return (
-        <>
-            <nav className="outerContainer navigation">
-                <div className="innerContainer">
-                    <ul className="">
-                        <li className="">
-                            <NavLink
-                                className={({ isActive }) =>
-                                    isActive ? 'active-nav-link' : 'default-nav-link'
-                                }
-                                to="/"
-                            >
-                                Home
-                            </NavLink>
-                        </li>
-                        <li className="">
-                            <NavLink
-                                className={({ isActive }) =>
-                                    isActive ? 'active-nav-link' : 'default-nav-link'
-                                }
-                                to="/contact"
-                            >
-                                Contact
-                            </NavLink>
-                        </li>
-                        <li className="">
-                            <NavLink
-                                className={({ isActive }) =>
-                                    isActive ? 'active-nav-link' : 'default-nav-link'
-                                }
-                                to="/products"
-                            >
-                                Products
-                            </NavLink>
-                        </li>
-                        {isAuth && (
-                            <>
-                                <li className="">
-                                    <NavLink
-                                        className={({ isActive }) =>
-                                            isActive ? 'active-nav-link' : 'default-nav-link'
-                                        }
-                                        to="/profile"
-                                    >
-                                        Profile
-                                    </NavLink>
-                                </li>
-                                <li className="">
-                                    <NavLink
-                                        className={({ isActive }) =>
-                                            isActive ? 'active-nav-link' : 'default-nav-link'
-                                        }
-                                        to="/studygroup"
-                                    >
-                                        StudyGroup
-                                    </NavLink>
-                                </li>
-                                <li className="">
-                                    <NavLink
-                                        className={({ isActive }) =>
-                                            isActive ? 'active-nav-link' : 'default-nav-link'
-                                        }
-                                        to="/review"
-                                    >
-                                        Review
-                                    </NavLink>
-                                </li>
-                                <li className="">
-                                    <NavLink
-                                        className={({ isActive }) =>
-                                            isActive ? 'active-nav-link' : 'default-nav-link'
-                                        }
-                                        to="/invoice"
-                                    >
-                                        Invoices
-                                    </NavLink>
-                                </li>
-                                <li className="">
-                                    <NavLink
-                                        className={({ isActive }) =>
-                                            isActive ? 'active-nav-link' : 'default-nav-link'
-                                        }
-                                        to="/messageboard"
-                                    >
-                                        MessageBoard
-                                    </NavLink>
-                                </li>
-                                <li className="">
-                                    <NavLink
-                                        className={({ isActive }) =>
-                                            isActive ? 'active-nav-link' : 'default-nav-link'
-                                        }
-                                        to="/messages"
-                                    >
-                                        Messages
-                                    </NavLink>
-                                </li>
-                                <li className="">
-                                    <Button
-                                        clickHandler={handleLogout}
-                                        buttonText='Logout'
-                                    />
-                                </li>
-                            </>
-                        )}
-                        {!isAuth && (
-                            <li className="">
-                                <Button
-                                    buttonText='Login'
-                                    className='login-button'
-                                    buttonType='button'
-                                    clickHandler={openLoginOverlay}
-                                />
-                            </li>
-                        )}
-                    </ul>
-                </div>
-            </nav>
             <div className="outerContainer, heroSection">
                 <section className="innerContainer, heroContent">
                     <div className="textContainer">
@@ -139,10 +21,9 @@ function Header({ openLoginOverlay, handleLogout, isAuth }) {
                             clickHandler= {() => navigate('/products')}
                         />
                     </div>
-                    <img src="" alt="logo" />
+                    <img src={logo} alt="logo" className="logo" />
                 </section>
             </div>
-        </>
     );
 }
 

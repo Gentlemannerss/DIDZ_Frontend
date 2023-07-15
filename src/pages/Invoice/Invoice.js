@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Product from "../../components/Product/Product";
+import './Invoice.css';
 
 function Invoice() {
     const [invoices, setInvoices] = useState([]);
@@ -30,35 +31,36 @@ function Invoice() {
     }, []);
 
     return (
-        <div>
-            <h2>User Invoices</h2>
-            {invoices.length === 0 ? (
-                <p>No invoices found.</p>
-            ) : (
-                <ul>
-                    {invoices.map((invoice) => (
-                        <li key={invoice.id}>
-                            <p>Invoice ID: {invoice.id}</p>
-                            <p>Invoice Date: {invoice.orderDate}</p>
-                            <p>Amount: {invoice.totalPrice}</p>
-                            <p>Address: {invoice.address}</p>
-                            <p>Invoice address: {invoice.invoiceAddress}</p>
-                            <p>Amount of Participants: {invoice.amountOfParticipants}</p>
-                            <p>Products:</p>
-                            {
-                                invoice.products.map((product) => (
-                                <Product
-                                product={product}
-                                />
-                                ))
-                            }
-                            <p>Frequency: {invoice.frequency}</p>
-                            <p>Comments: {invoice.comments}</p>
-                            <p>Terms of condition: {invoice.termsOfCondition}</p>
-                        </li>
-                    ))}
-                </ul>
-            )}
+        <div className="outerContainer">
+            <div className="innerContainer">
+                <h2>You're invoices</h2>
+                {invoices.length === 0 ? (
+                    <p>No invoices found.</p>
+                ) : (
+                    <ul>
+                        {invoices.map((invoice) => (
+                            <li key={invoice.invoiceId} className="invoiceContainer">
+                                <p>This is invoice number: {invoice.invoiceId}</p>
+                                <p>Date of you're invoice: {invoice.orderDate}</p>
+                                <p>The total price: {invoice.totalPrice}</p>
+                                <p>The invoice address: {invoice.address}</p>
+                                <p>Amount of Participants: {invoice.amountOfParticipants}</p>
+                                <p>Products that are ordered:</p>
+                                {
+                                    invoice.products.map((product) => (
+                                    <Product
+                                        key={product.productId}
+                                        product={product}
+                                    />
+                                    ))
+                                }
+                                <p>Frequency of appointment: {invoice.frequency}</p>
+                                <p>You're comments: {invoice.comments}</p>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </div>
         </div>
     );
 }

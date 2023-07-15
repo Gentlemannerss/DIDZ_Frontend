@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import axios from "axios";
 import PropTypes from "prop-types";
 
 function ReviewForm({ product }) {
     const [score, setScore] = useState(0);
     const [reviewDescription, setReviewDescription] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const formRef = useRef(null);
+    const reviewInputRef = useRef(null);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -17,6 +21,10 @@ function ReviewForm({ product }) {
         console.log(reviewFormData);
         //Send it here to the backend!
         createReview(reviewFormData)
+
+        //Reset the form
+        formRef.current.reset();
+        reviewInputRef.current.value = '';
     }
 
     const createReview = async (review) => {
@@ -31,11 +39,12 @@ function ReviewForm({ product }) {
             console.log(response.data)
         } catch (error) {
             console.error('Error fetching products:', error);
+            setErrorMessage(error.response.data)
         }
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form ref={formRef} onSubmit={handleSubmit}>
             <h2>Reviewing {product?.productName}</h2>
             <fieldset>
                 <legend>Score</legend>
@@ -105,11 +114,13 @@ function ReviewForm({ product }) {
                         placeholder="Enter here your honest review."
                         value={reviewDescription}
                         onChange={(e) => setReviewDescription(e.target.value)}
+                        ref={reviewInputRef}
                     ></textarea>
                 </label>
             </fieldset>
 
             <button type="submit">Submit</button>
+            {errorMessage && <p className="errorMessage">{errorMessage}</p>}
         </form>
     );
 }

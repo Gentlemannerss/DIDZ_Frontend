@@ -40,3 +40,19 @@
     font-size: 1rem;
     font-weight: bold;
 }
+
+.nextButton {
+    color: black;
+}
+
+.nextButton:hover {
+    color: #12a2d2;
+}
+
+.previousButton {
+    color: black;
+}
+
+.previousButton:hover {
+    color: #12a2d2;
+}

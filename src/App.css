@@ -32,3 +32,9 @@
 .mainContainer {
   flex-grow: 1;
 }
+
+.errorMessage {
+  color: red;
+  font-size: 1.5rem;
+  margin: 1rem;
+}

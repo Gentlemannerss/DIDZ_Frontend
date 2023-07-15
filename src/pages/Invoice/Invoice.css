@@ -1,0 +1,9 @@
+.invoiceContainer {
+    margin-bottom: 20px;
+    list-style: none;
+    background-color: rgba(18,130,162,0.31);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+}

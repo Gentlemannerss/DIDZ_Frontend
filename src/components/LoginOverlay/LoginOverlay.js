@@ -13,7 +13,7 @@ function LoginOverlay({ onClose, isAuth }) {
     const { login } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
 
-    async function onSubmit(data){
+    async function onLoginSubmit(data){
         try {
             const result = await axios.post("http://localhost:8080/authenticate", {
                 username : data.username,
@@ -27,6 +27,21 @@ function LoginOverlay({ onClose, isAuth }) {
             onClose()
         } catch (e) {
             console.error("Onjuist email en wachtwoord combinatie" + e)
+        }
+    }
+
+    async function onRegisterSubmit(data) {
+        try {
+            await axios.post("http://localhost:8080/users", {
+                email : data.email,
+                password : data.password,
+                username : data.username
+            }).then((response) => {
+                onLoginSubmit(data);
+            })
+            setFormMode('login');
+        } catch (e) {
+            console.error("Er is iets misgegaan met het registreren" + e)
         }
     }
 
@@ -52,7 +67,7 @@ function LoginOverlay({ onClose, isAuth }) {
                             {formMode === 'login' ? (
                                 <>
                                     <h1>Inloggen</h1>
-                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                    <form onSubmit={handleSubmit(onLoginSubmit)}>
                                         <div>
                                             <label>Gebruikersnaam:</label>
                                             <input type="text" {...register('username', { required: true })} />
@@ -74,7 +89,7 @@ function LoginOverlay({ onClose, isAuth }) {
                             ) : (
                                 <>
                                     <h1>Registreren</h1>
-                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                    <form onSubmit={handleSubmit(onRegisterSubmit)}>
                                         <div>
                                             <label>Emailadres:</label>
                                             <input type="email" {...register('email', { required: true })} />

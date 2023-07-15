@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './ContactForm.css';
 import Button from "../Button/Button";
+import axios from "axios";
 
 function ContactForm() {
     const [companyName, setCompanyName] = useState('');
@@ -9,23 +10,38 @@ function ContactForm() {
     const [email, setEmail] = useState('');
     const [description, setDescription] = useState('');
     const [termsOfCondition, setTermsOfCondition] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    function handleSubmit(e) {
-        e.preventDefault();
+    async function submitForm(event) {
+        event.preventDefault();
+        setIsLoading(true);
+
         const contactFormData = {
             companyName: companyName,
             name: name,
             phoneNumber: phoneNumber,
-            email: email,
+            eMail: email,
             description: description,
             termsOfCondition: termsOfCondition,
         };
-        console.log(contactFormData);
-        // Make here the further action to my own Backend
+        console.log(contactFormData)
+        try {
+            const response = await axios.post(`http://localhost:8080/contactform`, contactFormData, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+            });
+            console.log("Contact form data submitted:", response.data);
+        } catch (error) {
+            console.error(error);
+        }
+
+        setIsLoading(false);
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitForm}>
             <fieldset>
                 <legend>What is you're information</legend>
 
@@ -78,7 +94,7 @@ function ContactForm() {
                 <legend>Description</legend>
 
                 <label htmlFor="description">
-                    Please leave a description:
+                    Please leave a description: <br/>
                     <textarea
                         name="description"
                         id="description"

@@ -1,0 +1,22 @@
+.bigFont {
+    font-size: 2rem;
+}
+
+.smallFont {
+    font-size: 1.5rem;
+}
+
+.afterElement {
+
+}
+
+.afterElement::after {
+    content: "The problem in Healtcare";
+    position: absolute;
+    z-index: -1;
+    color: blue;
+    opacity: 0.2;
+    font-size: 6rem;
+    font-weight: bold;
+    top: 35%;
+}

@@ -5,6 +5,7 @@ import Services from '../../components/Services/Services';
 import ProductSlider from '../../components/ProductSlider/ProductSlider';
 import Benefits from '../../components/Benefits/Benefits';
 import OwnerInfo from "../../components/OwnerInfo/OwnerInfo";
+import Header from "../../components/Header/Header";
 // import AppointmentAgenda from '../../components/AppointmentAgenda/AppointmentAgenda';
 
 function Home() {
@@ -12,6 +13,7 @@ function Home() {
 
     return (
         <>
+            <Header />
             <ImageSlider slides={SliderData} />
             <Services />
             <ProductSlider

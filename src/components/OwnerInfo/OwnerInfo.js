@@ -1,14 +1,15 @@
 import React from 'react';
 import './OwnerInfo.css';
+import ownerImage from '../../assets/Owner.webp';
 
 function OwnerInfo() {
     return (
         <div className="outerContainer">
-            <section className="innerContainer, ownerinfo">
+            <section className="innerContainer ownerinfo">
                 <div className="imageContainer">
                     <img
-                        className="coachImage"
-                        src="https://via.placeholder.com/150"
+                        className="ownerImage"
+                        src={ownerImage}
                         alt="Digicoach Close Up"
                     />
                     <div className="imageOverlay"></div>
