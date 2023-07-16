@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 function LoginOverlay({ onClose, isAuth }) {
     const [isLoggedIn, setIsLoggedIn] = useState(isAuth);
     const [formMode, setFormMode] = useState('login');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const { login } = useContext(AuthContext);
     const { register, handleSubmit } = useForm();
@@ -26,6 +27,7 @@ function LoginOverlay({ onClose, isAuth }) {
             login(token, '/profile')
             onClose()
         } catch (e) {
+            setErrorMessage("Onjuiste email en wachtwoord combinatie");
             console.error("Onjuist email en wachtwoord combinatie" + e)
         }
     }
@@ -41,6 +43,7 @@ function LoginOverlay({ onClose, isAuth }) {
             })
             setFormMode('login');
         } catch (e) {
+            setErrorMessage("Er is iets misgegaan met het registreren");
             console.error("Er is iets misgegaan met het registreren" + e)
         }
     }
@@ -67,6 +70,7 @@ function LoginOverlay({ onClose, isAuth }) {
                             {formMode === 'login' ? (
                                 <>
                                     <h1>Inloggen</h1>
+                                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                                     <form onSubmit={handleSubmit(onLoginSubmit)}>
                                         <div>
                                             <label>Gebruikersnaam:</label>
@@ -89,6 +93,7 @@ function LoginOverlay({ onClose, isAuth }) {
                             ) : (
                                 <>
                                     <h1>Registreren</h1>
+                                    {errorMessage && <p className="error-message">{errorMessage}</p>}
                                     <form onSubmit={handleSubmit(onRegisterSubmit)}>
                                         <div>
                                             <label>Emailadres:</label>

@@ -16,7 +16,7 @@
 
 .card {
     width: 30%;
-    background-color: rgba(18,130,162,0.31);
+    background-color: var(--opacityblue);
     border-radius: 15px;
     padding: 20px;
     text-align: center;

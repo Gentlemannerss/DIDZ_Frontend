@@ -233,7 +233,7 @@ function StudyGroup() {
                             </select>*/}
 
                             <label htmlFor="users">
-                                Users:
+                                Users: <br/>
                                 <select
                                     name="users"
                                     id="users"
@@ -248,6 +248,7 @@ function StudyGroup() {
                                         </option>
                                     ))}
                                 </select>
+                                <p className="extraInfo">Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
                             </label>
 
                             <button type="button" onClick={createStudyGroup}>Submit</button>

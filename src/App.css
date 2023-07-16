@@ -1,3 +1,12 @@
+:root {
+  --darkblue: #0A1128;
+  --pennblue: #001F54;
+  --indigoblue: #034078;
+  --lightblue: #1282A2;
+  --white: #FEFCFB;
+  --opacityblue: rgba(18,130,162,0.31);
+}
+
 /* CSS Reset */
 * {
   margin: 0;

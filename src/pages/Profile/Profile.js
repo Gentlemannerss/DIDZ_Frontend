@@ -148,6 +148,7 @@ function Profile() {
         }
     }
 
+    //this was only to test if the image was being sent to the backend.
     async function getImage() {
         try {
             const response = await axios.get(
