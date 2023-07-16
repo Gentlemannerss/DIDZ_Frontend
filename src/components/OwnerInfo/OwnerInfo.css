@@ -1,0 +1,81 @@
+.imageContainer {
+    position: relative;
+    margin-right: 25px;
+    margin-top: 25px;
+}
+
+.imageOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ownerinfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ownerinfo::after {
+    content: "My experience";
+    position: absolute;
+    /*todo: zorg dat de text met een top of iets boven in de div komt te hangen.*/
+    z-index: -1;
+    color: #034078;
+    opacity: 0.2;
+    font-size: 4rem;
+    font-weight: bold;
+
+}
+
+.ownerImage {
+    width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.infoAboutTile {
+    margin-top: 20px;
+}
+
+.segmentsContainer {
+    display: flex;
+    margin-top: 20px;
+    flex: 1;
+    align-items: flex-start;
+}
+
+.leftSegment,
+.centerLeftSegment,
+.centerRightSegment,
+.rightSegment {
+    flex: 1;
+}
+
+.leftSegment h4,
+.centerLeftSegment h4,
+.centerRightSegment h4,
+.rightSegment h4 {
+    margin-bottom: 10px;
+}
+
+.leftSegment ul,
+.centerLeftSegment ul,
+.centerRightSegment ul,
+.rightSegment ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.leftSegment ul li,
+.centerLeftSegment ul li,
+.centerRightSegment ul li,
+.rightSegment ul li {
+    margin-bottom: 5px;
+}

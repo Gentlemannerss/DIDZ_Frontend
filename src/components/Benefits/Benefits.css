@@ -1,0 +1,43 @@
+.benefits {
+    /* Add styles for the benefits section here */
+}
+
+.cardContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.titleOfSection {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #034078;
+    padding: 1em 0 1em 0;
+}
+
+.card {
+    width: 30%;
+    background-color: var(--opacityblue);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card h4 {
+    font-size: 1.5rem;
+}
+
+.card p {
+    font-size: 1.2rem;
+    font-style: italic;
+}
+
+.benefitsAfter::after {
+    content: "Benefits of a Digicoach";
+    position: absolute;
+    z-index: -1;
+    color: #034078;
+    opacity: 0.2;
+    font-size: 6rem;
+    font-weight: bold;
+}
